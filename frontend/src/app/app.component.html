@@ -1,0 +1,73 @@
+<div class="app-container">
+  <!-- Header -->
+  <header class="main-header" role="banner">
+    <div class="header-content">
+      <a routerLink="/" class="logo" attr.aria-label="ShopNow Home">ShopNow</a>
+      <nav class="main-nav" attr.aria-label="Main navigation">
+        <a routerLink="/addproduct" class="nav-link" attr.aria-label="add products">
+          <i class="fas fa-plus-circle" aria-hidden="true"></i>
+        </a>
+        <a *ngIf="isAuthenticated" routerLink="/cart" class="cart-link" attr.aria-label="Shopping cart">
+          <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+        </a>
+        <div *ngIf="isAuthenticated" class="profile-image-container">
+          <div id="profile_Image"  class="profile-image"
+          style="width: 100px; height: 100px; background-size: cover;"
+          [ngStyle]="{'background-image': 'url(' + profileImageUrl + ')'}">
+        </div>
+          </div>
+        <a  routerLink="/login" *ngIf="!isAuthenticated"  class="login-btn" id="login" attr.aria-label="Login">Login</a>
+        <button  *ngIf="isAuthenticated" (click)="logout()" id="logout" class="logout-btn" >Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <router-outlet></router-outlet>
+    <div class="container" *ngIf="!isLoginPage">
+      <h2>Products</h2>
+      <div class="product-grid">
+        <div *ngFor="let product of products" class="product-card">
+          <img [src]="product.image_key" [alt]="product.name" loading="lazy">
+          <div class="product-info">
+            <h3>{{product.name}}</h3>
+            <p class="description" *ngIf="product.description">{{product.description}}</p>
+            <div class="price-container">
+              <span class="current-price">{{product.price }}</span>
+            </div>
+            <button (click)="addToCart(product)" [attr.aria-label]="'Add ' + product.name + ' to cart'">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer" role="contentinfo">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About Us</h3>
+        <p>Your one-stop shop for quality products at great prices.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Email: <a [href]="'mailto:' + emailAddress" attr.aria-label="Email us">{{emailAddress}}</a></p>
+        <p>Phone: <a href="tel:1234567890" attr.aria-label="Call us">(123) 456-7890</a></p>
+      </div>
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <div class="social-links">
+          <a href="#" attr.aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+          <a href="#" attr.aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+          <a href="#" attr.aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&#169; {{currentYear}} ShopNow. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,114 @@
+<!-- register.component.html -->
+<div class="auth-container">
+  <div class="auth-card">
+    <h2 class="auth-title">Create Account</h2>
+    
+    <form (ngSubmit)="onSubmit()" class="auth-form" enctype="multipart/form-data">
+      <!-- Profile Image Upload -->
+      <div class="form-group image-upload-group">
+        <label for="profileImage">Profile Picture</label>
+        <div class="image-upload-container">
+          <div class="image-preview-wrapper" *ngIf="imagePreview">
+            <div class="image-preview">
+              <img [src]="imagePreview" alt="Profile Preview" class="preview-image">
+              <button type="button" class="remove-image-btn" (click)="removeImage()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <div class="upload-btn-container">
+            <label class="upload-btn">
+              <input 
+                type="file" 
+                id="profileImage" 
+                name="file" 
+                accept="image/*" 
+                (change)="onImageUpload($event)"
+                style="display: none;"
+              >
+              <i class="fas fa-cloud-upload-alt"></i> Choose Image
+            </label>
+          </div>
+        </div>
+      </div>
+      
+
+      <!-- Name Field -->
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          [(ngModel)]="user.name" 
+          required
+          class="form-control"
+          #name="ngModel"
+        >
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
+          Name is required
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          [(ngModel)]="user.email" 
+          required
+          class="form-control"
+          #email="ngModel"
+        >
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
+          Valid email is required
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          [(ngModel)]="user.password" 
+          required
+          minlength="8"
+          class="form-control"
+          #password="ngModel"
+        >
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
+          Password must be at least 8 characters
+        </div>
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input 
+          type="password" 
+          id="confirmPassword" 
+          name="confirmPassword" 
+          [(ngModel)]="user.confirmPassword" 
+          required
+          class="form-control"
+          #confirmPassword="ngModel"
+        >
+        <div *ngIf="user.password !== user.confirmPassword && confirmPassword.touched" class="error-message">
+          Passwords do not match
+        </div>
+      </div>
+
+      <button type="submit" class="auth-button">
+        Register
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Already have an account? <a routerLink="/login">Sign in</a></p>
+    </div>
+  </div>
+</div>
