@@ -39,15 +39,19 @@ export const getCart = async (req: Request, res: Response): Promise<void> => {
       
       // Sending JSON response
       res.json({ cartItems:simplifiedCartItems, total });
+      return;
     }else{
       res.status(404).json({ message: 'Cart is empty' });
+      return;
     }
   }else{ 
     res.status(404).json({ message: 'Cart not found' });
+    return;
   }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });
+    return;
   }
 };
 // add product to cart
@@ -80,9 +84,11 @@ export const addToCart = async (req: Request, res: Response) => {
     }
     // Sending JSON response
     res.status(201).json({ message: 'Product added to cart' });
+    return;
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });
+    return;
   }
 };
 // remove product from cart
@@ -102,15 +108,19 @@ export const removeFromCart = async (req: Request, res: Response) => {
 
     if (!deleted) {
       res.status(404).json({ message: 'Product not found in cart' });
+      return;
     }
     // Sending JSON response
     res.json({ message: 'Product removed from cart' });
+    return;
   } else {
     res.status(404).json({ message: 'Cart not found' });
+    return;
   }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });
+    return;
   }
 };
 // remove all products from cart
@@ -128,12 +138,15 @@ export const removeAllCart = async (req: Request, res: Response) => {
     await Cart.destroy({ where: { user_id: userId } });
     // Sending JSON response
     res.json({ message: 'All products removed from cart' });
+    return;
   } else {
     res.status(404).json({ message: 'Cart not found' });
+    return;
   } 
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });
+    return;
   }
 };
 

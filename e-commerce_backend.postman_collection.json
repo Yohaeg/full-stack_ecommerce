@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "fc9a5e8e-b121-45d7-ae23-d9a808ecedff",
+		"name": "e-commerce_backend",
+		"description": "Test backend APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "4858387"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "register new user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\":\"user1\",\r\n  \"email\": \"user1@shop.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/user/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Duplicate email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\":\"user1\",\r\n  \"email\": \"user1@shop.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/user/register"
+					},
+					"response": []
+				},
+				{
+					"name": "wrong password",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user1@shop.com\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/user/login"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user1@shop.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/user/login"
+					},
+					"response": []
+				},
+				{
+					"name": "profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQ1ODU4NTQxLCJleHAiOjE3NDU5NDQ5NDF9.qR2FIGjzyAzk8UAXAJ8bAKJGDMEEwuGuBuJgAmh_RKE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/user/profile"
+					},
+					"response": []
+				},
+				{
+					"name": "No token provided",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/user/profile"
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "14444444"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/user/profile"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "Product Creation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Headphones\",\r\n    \"description\":\"Headphones\",\r\n    \"price\": 349.99,\r\n    \"file\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/product/add-product"
+					},
+					"response": []
+				},
+				{
+					"name": "listProducts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQ1ODYxMDczLCJleHAiOjE3NDU5NDc0NzN9.cJpTso9Q1necHC0I7BUL913n3lFKfiqlyjTCcNGkZvc"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Product Name\",\r\n  \"description\": \"Product Description\",\r\n  \"price\": 100.00,\r\n  \"image_key\": \"path/to/image.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/product"
+					},
+					"response": []
+				},
+				{
+					"name": "add product without image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTc0NTc3ODcwNywiZXhwIjoxNzQ1ODY1MTA3fQ.K3sLim_ATR_fsSgWWNmPYEanq6E3ZA84UCF2eBHzoJg"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Headphones\",\r\n    \"description\":\"Headphones\",\r\n    \"price\": 349.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/product/add-product"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cart",
+			"item": [
+				{
+					"name": "Add to Cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQ1ODYxMDczLCJleHAiOjE3NDU5NDc0NzN9.cJpTso9Q1necHC0I7BUL913n3lFKfiqlyjTCcNGkZvc"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/cart"
+					},
+					"response": []
+				},
+				{
+					"name": "getcart",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQ1ODYxMDczLCJleHAiOjE3NDU5NDc0NzN9.cJpTso9Q1necHC0I7BUL913n3lFKfiqlyjTCcNGkZvc"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/cart/getcart"
+					},
+					"response": []
+				},
+				{
+					"name": "removeFromCart",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "remove all",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "addresses",
+			"item": [
+				{
+					"name": "add Address1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQ1ODYxMDczLCJleHAiOjE3NDU5NDc0NzN9.cJpTso9Q1necHC0I7BUL913n3lFKfiqlyjTCcNGkZvc"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"street\": \"123 Main St\",\r\n  \"city\": \"Egypt\",\r\n  \"state\": \"Cairo\",\r\n  \"zip_code\": \"10001\",\r\n  \"is_default\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/address"
+					},
+					"response": []
+				},
+				{
+					"name": "add Address2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzQ1ODYxMDczLCJleHAiOjE3NDU5NDc0NzN9.cJpTso9Q1necHC0I7BUL913n3lFKfiqlyjTCcNGkZvc"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"street\": \"123 Main St\",\r\n  \"city\": \"Egypt\",\r\n  \"state\": \"Alex\",\r\n  \"zip_code\": \"5000\",\r\n  \"is_default\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/address"
+					},
+					"response": []
+				},
+				{
+					"name": "get all addresses for user",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

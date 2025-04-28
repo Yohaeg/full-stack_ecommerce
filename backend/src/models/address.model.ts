@@ -24,5 +24,6 @@ Address.init(
   {
     sequelize,
     tableName: 'user_addresses',
+    timestamps: false
   }
 );

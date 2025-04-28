@@ -5,8 +5,10 @@ import dotenv from 'dotenv';
 import userRoute from './routes/user.route';
 import productRoute from './routes/product.route';
 import cartRoute from './routes/cart.route';
+import addressRoute from './routes/address.routes';
 import cors from 'cors';
 import serverlessExpress from '@vendia/serverless-express';
+
 
 dotenv.config();
 
@@ -25,6 +27,8 @@ app.get('/', (_req, res) => {
 app.use('/api/user', userRoute);
 app.use('/api/product', productRoute);
 app.use('/api/cart', cartRoute);
+app.use('/api/address', addressRoute);
+
 
 
 if (process.env.NODE_ENV === 'production') {
