@@ -1,152 +1,198 @@
-## Product Browser Application - Full Stack (AWS S3, Lambda, Node.js, Angular, MySQL)
-# Overview
-- This is a full-stack web application that allows users to:
+# Product Browser Application – Full Stack Solution
 
-- Register with image uploaded in AWS S3 and login with JWT authentication (frontend and backend with  Database)
+## Overview
 
-- Browse products with images stored in S3 (frontend and backend with Database)
+This project is a full-stack web application that enables users to:
 
-- Manage a persistent shopping cart (frontend and backend with Database)
+- **Register and Login:** User registration with image upload to AWS S3 and JWT-based authentication (frontend and backend with database integration).
+- **Product Browsing:** Browse products with images stored in S3 (frontend and backend with database).
+- **Shopping Cart:** Persistent shopping cart management (frontend and backend with database).
+- **Shipping Addresses:** Manage multiple shipping addresses (stored in a MySQL `user_addresses` table).
 
-- Manage multiple shipping addresses  (My SQL table (user_addresses))
+---
 
-## Technologies:
+## Technologies Used
 
-- MySQL database (local in schema.sql by using db-setup.js)
-- Angular for frontend
-- Node.js with express.js for backend (type script)
-- trying to use lambda but it's my first time to use so I stablished it with serverless using 
-@vendia/serverless-express 
-- upload images in S3 by using ( aws-sdk , aws-sdk/clients/s3)
+- **Backend:** Node.js (TypeScript) with Express.js, AWS Lambda (via `@vendia/serverless-express`), AWS S3 (using `aws-sdk`), MySQL.
+- **Frontend:** Angular.
+- **Database:** MySQL (local setup via `schema.sql` and `db-setup.js`).
+- **Image Storage:** AWS S3.
 
+---
 
-# This is IAM policies I didn't need any configuration 
-Create IAM policies for S3 access:
-json
+## AWS IAM Policy for S3 Access
+
+No additional configuration required. Example IAM policy for S3 access:
+
+```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:PutObject",
-                "s3:GetObject",
-                "s3:DeleteObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::bucketName/profiles/*",
-                "arn:aws:s3:::bucketName/products/*"
-            ]
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::bucketName/profiles/*",
+        "arn:aws:s3:::bucketName/products/*"
+      ]
+    }
+  ]
 }
+```
 
+---
 
-## Backend Setup (Node.js):
-- Navigate to the backend directory
-# setup packages 
-- npm install
-- npm install -g @angular/cli
-if installed should do this 
-- npm remove @types/sequelize
-may have conflict
-- npm install --save-dev @types/dotenv
-# Setup My SQL
-- node db-setup.js
-# changed the package.json
-- "type": "commonjs" to "type": "module" to use import instead of require
-# Environment Variables (.env)
-    DB_HOST= => host
-    DB_USER= => database user
-    DB_PASSWORD => database password
-    DB_NAME => database name
-    JWT_SECRET => JWT Secret 
-    AWS_ACCESS_KEY => S3 Key
-    AWS_SECRET_KEY => S3 Secret
-    AWS_REGION => S3 Region
-    S3_BUCKET => S3 BUCKET NAME
-    PORT => port
-    NODE_ENV => (development for local , production for using serverless lambda)
-# Example:
-    DB_HOST=127.0.0.1
-    DB_USER=
-    DB_PASSWORD=
-    DB_NAME=
-    JWT_SECRET=
-    AWS_ACCESS_KEY=
-    AWS_SECRET_KEY=
-    AWS_REGION=us-east-1
-    S3_BUCKET=
-    PORT=3000
-    NODE_ENV=development
-## Running Locally:
+## Backend Setup (Node.js)
+
+1. **Navigate to the backend directory.**
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Install Angular CLI globally (if not already installed):**
+   ```bash
+   npm install -g @angular/cli
+   ```
+
+4. **Resolve potential type conflicts:**
+   ```bash
+   npm remove @types/sequelize
+   npm install --save-dev @types/dotenv
+   ```
+
+5. **Set up MySQL database:**
+   ```bash
+   node db-setup.js
+   ```
+
+6. **Update `package.json`:**
+   - Change `"type": "commonjs"` to `"type": "module"` to use ES module imports.
+
+7. **Configure environment variables (`.env`):**
+   ```
+   DB_HOST=your_host
+   DB_USER=your_user
+   DB_PASSWORD=your_password
+   DB_NAME=your_db
+   JWT_SECRET=your_jwt_secret
+   AWS_ACCESS_KEY=your_aws_access_key
+   AWS_SECRET_KEY=your_aws_secret_key
+   AWS_REGION=us-east-1
+   S3_BUCKET=your_s3_bucket
+   PORT=3000
+   NODE_ENV=development  # or 'production' for serverless Lambda
+   ```
+
+8. **Run the backend locally:**
+   ```bash
    npm run start
+   ```
+
+---
 
 ## Frontend Setup (Angular)
-# Install Angular CLI:
-- npm install -g @angular/cli
-# Create a New Angular App:
-- ng new frontend
-# Navigate into Your Project:
-- cd frontend
-# Start the Development Server
-- ng serve
 
-src/
-├── app/
-│   ├── auth/         # Login/Register components
-│   ├── products/     # Product list and Add
-│   ├── cart/         # Cart for each user
-│   ├── services/     # AuthService, CartService
-│   └── app-routing.module.ts
+1. **Install Angular CLI globally:**
+   ```bash
+   npm install -g @angular/cli
+   ```
 
+2. **Create a new Angular application:**
+   ```bash
+   ng new frontend
+   cd frontend
+   ```
 
-# Generate Pages:
-- ng generate component auth/login
-- ng generate component auth/register
-- ng generate component products/product-list
-- ng generate component products/add-product
-- ng generate component cart/cart
+3. **Start the development server:**
+   ```bash
+   ng serve
+   ```
 
+4. **Project Structure:**
+   ```
+   src/
+   └── app/
+       ├── auth/         # Login/Register components
+       ├── products/     # Product list and Add
+       ├── cart/         # Cart for each user
+       ├── services/     # AuthService, CartService
+       └── app-routing.module.ts
+   ```
 
-#  Generate Services:
-- ng generate service services/cart
+5. **Generate Components:**
+   ```bash
+   ng generate component auth/login
+   ng generate component auth/register
+   ng generate component products/product-list
+   ng generate component products/add-product
+   ng generate component cart/cart
+   ```
 
-# Navigate to the frontend directory
-# setup packages 
-- npm install
-# Environment Variables
-    Create src/app/environments/environment.ts with:
-    export const environment = {
-        production: false,
-        apiUrl: 'http://localhost:3000/api'  // Development API
-    };
+6. **Generate Services:**
+   ```bash
+   ng generate service services/cart
+   ```
 
-## Running Locally:
-- npm run start
+7. **Install frontend dependencies:**
+   ```bash
+   npm install
+   ```
+
+8. **Set up environment variables:**
+   - Create `src/app/environments/environment.ts`:
+     ```typescript
+     export const environment = {
+       production: false,
+       apiUrl: 'http://localhost:3000/api'  // Development API
+     };
+     ```
+
+9. **Run the frontend locally:**
+   ```bash
+   npm run start
+   ```
+
+---
 
 ## API Endpoints
-# Users
-- POST /user/register - User registration
-- POST /user/login - User login
-- get /user/profile - User profile(token)
 
-# Products
-- GET /product - Get all products
-- POST /product/add-product - add product
+### Users
 
-# Cart
-- GET /cart/getcart - Get user's cart(token)
-- POST /cart - Add item to cart(token)
-- DELETE /cart/{productId} - Remove item from cart(token)
-- GET /cart/delete - Remove all items (clear cart)(token)
+- `POST /user/register` – User registration
+- `POST /user/login` – User login
+- `GET /user/profile` – Get user profile (requires token)
 
-# Addres
-- POST /address - Add new address for user(token)
-- GET /address/user - Get all addresses for user (token)
+### Products
+
+- `GET /product` – Get all products
+- `POST /product/add-product` – Add a new product
+
+### Cart
+
+- `GET /cart/getcart` – Get user's cart (requires token)
+- `POST /cart` – Add item to cart (requires token)
+- `DELETE /cart/{productId}` – Remove item from cart (requires token)
+- `GET /cart/delete` – Clear cart (requires token)
+
+### Address
+
+- `POST /address` – Add new address for user (requires token)
+- `GET /address/user` – Get all addresses for user (requires token)
+
+---
 
 ## Postman Collection
-- Import the Postman collection from (e-commerce_backend.postman_collection.json)
 
-## Troubleshooting:
-- S3 Access Denied: Verify IAM policies are attached to Lambda roles
+- Import the Postman collection from `e-commerce_backend.postman_collection.json` for API testing.
+
+---
+
+## Troubleshooting
+
+- **S3 Access Denied:** Ensure IAM policies are correctly attached to Lambda roles.
