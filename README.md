@@ -14,7 +14,7 @@
 
 - MySQL database (local in schema.sql by using db-setup.js)
 - Angular for frontend
-- Node.js with express.js for backend 
+- Node.js with express.js for backend (type script)
 - trying to use lambda but it's my first time to use so I stablished it with serverless using 
 @vendia/serverless-express 
 - upload images in S3 by using ( aws-sdk , aws-sdk/clients/s3)
@@ -43,7 +43,7 @@ json
 
 
 ## Backend Setup (Node.js):
-- Navigate to the frontend directory
+- Navigate to the backend directory
 # setup packages 
 - npm install
 if installed should do this 
@@ -83,13 +83,13 @@ may have conflict
 
 ## Frontend Setup (Angular)
 # Install Angular CLI:
-npm install -g @angular/cli
+- npm install -g @angular/cli
 # Create a New Angular App:
-ng new e-commerce_front
+- ng new frontend
 # Navigate into Your Project:
-cd e-commerce_front
+- cd frontend
 # Start the Development Server
-ng serve
+- ng serve
 
 src/
 ├── app/
@@ -101,17 +101,17 @@ src/
 
 
 # Generate Pages:
-ng generate component auth/login
-ng generate component auth/register
-ng generate component products/product-list
-ng generate component products/add-product
-ng generate component cart/cart
+- ng generate component auth/login
+- ng generate component auth/register
+- ng generate component products/product-list
+- ng generate component products/add-product
+- ng generate component cart/cart
 
 
 #  Generate Services:
-ng generate service services/cart
-- Navigate to the frontend directory
+- ng generate service services/cart
 
+# Navigate to the frontend directory
 # setup packages 
 - npm install
 # Environment Variables
@@ -122,30 +122,30 @@ ng generate service services/cart
     };
 
 ## Running Locally:
-   npm run start
+- npm run start
 
 ## API Endpoints
 # Users
-POST /user/register - User registration
-POST /user/login - User login
-get /user/profile - User profile(token)
+- POST /user/register - User registration
+- POST /user/login - User login
+- get /user/profile - User profile(token)
 
 # Products
-GET /product - Get all products
-POST /product/add-product - add product
+- GET /product - Get all products
+- POST /product/add-product - add product
 
 # Cart
-GET /cart/getcart - Get user's cart(token)
-POST /cart - Add item to cart(token)
-DELETE /cart/{productId} - Remove item from cart(token)
-GET /cart/delete - Remove all items (clear cart)(token)
+- GET /cart/getcart - Get user's cart(token)
+- POST /cart - Add item to cart(token)
+- DELETE /cart/{productId} - Remove item from cart(token)
+- GET /cart/delete - Remove all items (clear cart)(token)
 
 # Addres
-POST /address - Add new address for user(token)
-GET /address/user - Get all addresses for user (token)
+- POST /address - Add new address for user(token)
+- GET /address/user - Get all addresses for user (token)
 
 ## Postman Collection
-Import the Postman collection from (e-commerce_backend.postman_collection.json)
+- Import the Postman collection from (e-commerce_backend.postman_collection.json)
 
 ## Troubleshooting:
 - S3 Access Denied: Verify IAM policies are attached to Lambda roles
