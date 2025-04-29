@@ -41,11 +41,11 @@ export const getCart = async (req: Request, res: Response): Promise<void> => {
       res.json({ cartItems:simplifiedCartItems, total });
       return;
     }else{
-      res.status(404).json({ message: 'Cart is empty' });
+      res.status(404).json({ message: 'Cart is empty' ,cartItems:[],total: 0});
       return;
     }
   }else{ 
-    res.status(404).json({ message: 'Cart not found' });
+    res.status(404).json({ message: 'Cart not found',cartItems:[],total: 0 });
     return;
   }
   } catch (error) {

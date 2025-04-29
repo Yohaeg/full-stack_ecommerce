@@ -46,6 +46,7 @@ json
 - Navigate to the backend directory
 # setup packages 
 - npm install
+- npm install -g @angular/cli
 if installed should do this 
 - npm remove @types/sequelize
 may have conflict

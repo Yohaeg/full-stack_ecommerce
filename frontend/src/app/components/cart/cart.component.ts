@@ -51,10 +51,19 @@ export class CartComponent implements OnInit {
           // alert('API Items:'+ apiItems);
           this.cartItems = response.cartItems; 
           this.total = response.total;  
-          this.cartItems$.next(response.cartItems); 
+          if(this.cartItems.length > 0) {
+            this.cartItems$.next(response.cartItems);
+          } else {
+            this.cartItems$ = new BehaviorSubject<CartItem[]>([]); // Reset cart items if empty
+          }
+          // alert('Cart items: '+ this.cartItems$.getValue() );
         },
         error: (err) => {
+          this.cartItems$ = new BehaviorSubject<CartItem[]>([]); // Reset cart items if error occurs
+          this.total = 0;
+          this.cartItems = [];
           console.error('Failed to load cart:', err);
+          // alert('Failed to load cart: ' + err.error.message); // Display error message
         }
       });
     }

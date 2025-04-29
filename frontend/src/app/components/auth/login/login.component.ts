@@ -123,9 +123,9 @@ export class LoginComponent {
     return 'Login failed. Please try again later.';
   }
 
-  ngOnDestroy() {
-    console.log('Login component destroyed');
-    this.logout();
+  // ngOnDestroy() {
+  //   console.log('Login component destroyed');
+  //   this.logout();
 
-  }
+  // }
 }
